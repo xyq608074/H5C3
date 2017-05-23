@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>留言板 Message</title>
+    <style>
+        textarea{
+            width:300px;
+            height: 200px;
+        }
+    </style>
+    <script>
+        var message=document.getElementById("info");
+        //添加留言信息
+        function addInfo() {
+            var ls=window.localStorage;//获取localStorage对象
+            var date = new Date();
+            if (ls.mykey){
+                ls.mykey+=txtname.value+"\t"+info.value+"\n 发表时间:"+date.toLocaleString()+"\n";
+            }else{
+                ls.mykey=txtname.value+"\t"+info.value+"\n 发表时间:"+date.toLocaleString()+"\n";
+            }
+            showMessage();
+        }
+
+        //显示信息
+        function showMessage() {
+            var msg=document.getElementById("message");
+            if (window.localStorage.mykey){
+                msg.value=window.localStorage.getItem("mykey");
+            }else{
+                msg.value="还没有留言";
+            }
+        }
+
+        //清除留言信息
+        function clear(){
+            window.localStorage.removeItem("mykey");
+            showMessage();
+        }
+    </script>
+</head>
+<body>
+    姓名: <input type="text" id="txtname"><br>
+    留言: <br>
+    <textarea id="info"></textarea> <br>
+    <input type="button" name="btnsend" value="留言" onclick="addInfo()">
+    <input type="button" name="btnclear" value="清除" onclick="clear()">
+    <hr>
+    <textarea id="message" readonly></textarea>
+</body>
+</html>
