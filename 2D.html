@@ -49,6 +49,31 @@
         section ul li.translate:hover{
             transform: translate(-10px,-10px);
         }
+        section ul li.translate-x:hover{
+            transform: translateX(10px);
+        }
+        section ul li.translate-y:hover{
+            transform: translateY(10px);
+        }
+        section ul li.skew:hover{
+            transform: skew(20deg,15deg);
+        }
+        section ul li.skew-x:hover{
+            transform: skewX(20deg);
+        }
+        section ul li.skew-y:hover{
+            transform: skewY(20deg);
+        }
+
+        /*origin*/
+        section ul li.origin{
+            transform-origin: left bottom;
+        }
+        section ul li.origin:hover{
+            transform: rotate(90deg);
+        }
+
+
         .rotate{
             background: red;
         }
@@ -79,9 +104,6 @@
         .skew-y{
             background: #93ff00;
         }
-        .mutil{
-            background: #00ff3c;
-        }
         .origin{
             background: #00a4ff;
         }
@@ -103,7 +125,6 @@
             <li class="skew">skew</li>
             <li class="skew-x">skew-x</li>
             <li class="skew-y">skew-y</li>
-            <li class="mutil">mutil</li>
             <li class="origin">origin</li>
         </ul>
     </section>
