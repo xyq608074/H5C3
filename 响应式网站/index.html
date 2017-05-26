@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="js/swipe.js"></script>
+    <title>响应式HTML</title>
+    <style>
+        body,h1,h2,h3,h4,h5,h6,ul,li,a{
+            text-decoration: none;
+            list-style-type: none;
+            margin:0px;
+            padding: 0px;
+        }
+        .icon{
+            display: none;
+        }
+        #container{
+            width:960px;
+            margin:0 auto;
+        }
+        header,nav,article,aside,footer{
+            margin-bottom: 10px;
+        }
+        header{
+            height:100px;
+            border-bottom: 1px solid #ccc;
+        }
+        header h3{
+            padding:30px 0 0 40px;
+        }
+        header p{
+            color: #757575;
+            padding-left: 40px;
+            font-size: 12px;
+        }
+        nav {
+            z-index: 999;
+            height:40px;
+        }
+        nav ul li{
+            width:100px;
+            float: left;
+            line-height: 40px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        nav ul li a{
+            display: inline-block;
+            padding: 0 20px 0 20px;
+            color: #000;
+        }
+        nav ul li a:hover,.selected{
+            background: #d7d7d7;
+        }
+        section{
+            margin-bottom: 10px;
+        }
+        section img{
+            width: 100%;
+        }
+        .swipe {
+            overflow: hidden;
+            visibility: hidden;
+            position: relative;
+        }
+        .swipe-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+        .swipe-wrap > div {
+            float:left;
+            width:100%;
+            position: relative;
+        }
+        section:hover button{
+            display: block;
+        }
+        .slider-control button{
+            width:40px;
+            height: 40px;
+            border:3px solid #fff;
+            background: #000;
+            border-radius:50%;
+            color: #fff;
+            font-size:25px;
+            position: absolute;
+            opacity: 0.7;
+            cursor: pointer;
+            display: none;
+        }
+        .slider-control button.left{
+            top:45%;
+            left:20px;
+        }
+        .slider-control button.right{
+            top:45%;
+            right:20px;
+        }
+        article {
+            height:300px;
+            width:600px;
+            background: #bfffa8;
+            margin-right:20px;
+            float:left;
+        }
+        aside{
+            float:left;
+            height:300px;
+            width:340px;
+            background: #ffe4ef;
+        }
+        footer{
+            clear: both;
+            height:100px;
+            background: #d7d7d7;
+        }
+
+        @media (min-width:1200px) {
+            #container{
+                width:1170px;
+            }
+            article{
+                width:700px;
+            }
+            aside{
+                width:450px;
+            }
+        }
+        @media (max-width:959px) {
+            #container{
+                width:100%;
+            }
+            header{
+                text-align: center;
+            }
+            article{
+                width:67%;
+            }
+            aside{
+                width:30%;
+                float: right;
+            }
+            nav{
+                display: none;
+            }
+
+            .icon{
+                display: inline-block;
+                position: absolute;
+                font-size: 30px;
+                color: #fff;
+                background: #000;
+                padding:0 7px 0 7px;
+                right: 10px;
+                top:30px;
+            }
+            nav a.close {
+                display: none;
+            }
+
+            nav ul:target{
+                display: block;
+            }
+            nav:target a.close{
+                display:inline-block;
+            }
+            nav:target{
+                display: block;
+                position: absolute;
+                top:0;
+                width:100%;
+                padding-top: 110px;
+            }
+            nav:target ul{
+                width:100%;
+                background: #000;
+            }
+            nav:target ul li{
+                float: none;
+                background: #121212;
+                width:100%;
+            }
+            nav:target ul li a:hover,nav:target ul li a.selected {
+                background: #2a2a2a;
+                padding:0 45% 0 45%;
+            }
+            nav:target ul li a{
+                color: #fff;
+            }
+        }
+        @media (max-width:767px) {
+            #container{
+                width:100%;
+            }
+            article,aside{
+                width:100%;
+                float:none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h3>网页头部</h3>
+            <p>这个是网页头部上的一段没有用的文字</p>
+        </header>
+        <a href="#nav" class="open icon"><i style="font-style:normal;">☰</i></a>
+        <nav id="nav">
+            <ul>
+                <li><a href="#" class="selected">项目</a></li>
+                <li><a href="#">项目</a></li>
+                <li><a href="#">项目</a></li>
+                <li><a href="#">项目</a></li>
+                <li><a href="#">项目</a></li>
+                <li><a href="#">项目</a></li>
+                <li><a href="#">项目</a></li>
+                <li><a href="#">项目</a></li>
+                <li><a href="#">项目</a></li>
+            </ul>
+            <a href="#top" class="close icon"><i style="font-style: normal">×</i></a>
+        </nav>
+        <section>
+            <div id='slider' class='swipe'>
+                <div class='swipe-wrap'>
+                    <div><img src="image/01.jpg" alt=""></div>
+                    <div><img src="image/02.jpg" alt=""></div>
+                    <div><img src="image/03.jpg" alt=""></div>
+                </div>
+                <div class="slider-control">
+                    <button class="left" onclick="mySwipe.prev()">&lt;</button>
+                    <button class="right" onclick="mySwipe.next()">&gt;</button>
+                </div>
+            </div>
+            <script>window.mySwipe = Swipe(document.getElementById('slider'));</script>
+        </section>
+        <article>
+            <h3>主体</h3>
+            <p>主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容</p>
+        </article>
+        <aside>
+            <h3>边栏</h3>
+            <p>侧边栏部分侧边栏部分侧边栏部分侧边栏部分侧边栏部分侧边栏部分侧边栏部分侧边栏部分侧边栏部分侧边栏部分侧边栏部分侧边栏部分侧边栏部分侧边栏部分侧边栏部分</p>
+        </aside>
+        <footer>
+            <h3>底部</h3>
+        </footer>
+    </div>
+</body>
+</html>
